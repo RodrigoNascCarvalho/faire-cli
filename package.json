@@ -1,0 +1,19 @@
+{
+  "name": "faire-cli",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "faire-cli": "node index.js",
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "axios": "^0.18.0"
+  },
+  "devDependencies": {
+    "jest": "^24.5.0",
+    "jest-mock-axios": "^2.3.0"
+  }
+}
