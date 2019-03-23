@@ -1,5 +1,11 @@
 # Faire CLI
 
+Tool makes the following:
+1. Get all products for a given brand
+2. Get all orders
+3. Consume NEW orders, either by adding to backordered status or processing it whole
+4. Print various statistics about the orders
+
 To run this Node.js script, use the following commands:
 
 ```
