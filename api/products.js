@@ -1,4 +1,5 @@
 const faireApi = require('./faire-api');
+const { info, debug } = require('../log');
 
 const formatOptions = (options) => (
     options
@@ -24,12 +25,16 @@ const treatProductDataByBrand = (products, brand) => (
 const getProductsFromBrands = async (brand) => {
     try {
         const { data } = await faireApi.get('/products');
+        
+        debug(data.products);
+        
         const brandProducts = treatProductDataByBrand(data.products, brand);
 
         return brandProducts;
     } catch (error) {
+        info(error)
         const reason = error.response && error.response.data;
-        console.log(`[ERROR][GET_ALL_PRODUCTS]:${error.message} - ${reason.message}`);
+        info(`[ERROR][GET_ALL_PRODUCTS]:${error.message} - ${reason.message}`);
     }
 };
 

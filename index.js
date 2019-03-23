@@ -15,8 +15,7 @@ const BRAND = process.argv[3] || 'b_d2481b88';
 (async function() {
     const brandProducts = await api.getProductsFromBrands(BRAND);
     const allOrders = await api.getAllOrders();
-    const newOrders = allOrders.filter(order => order.state === 'NEW');
 
-    await api.consumeOrders(newOrders, brandProducts);
+    await api.consumeNewOrders(allOrders, brandProducts);
     util.printOrderStatistics(allOrders);
 }());

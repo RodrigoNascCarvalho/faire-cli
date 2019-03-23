@@ -1,3 +1,5 @@
+const { info } = require('../log');
+
 /**
  * Flatten all items inside order into one array
  * @function flattenItems
@@ -47,45 +49,45 @@ const reduceAndFindBiggest = (orders, reducer) => {
  */
 const printOrderStatistics = (orders) => {
     if (!orders.length) {
-        console.log('No orders to be processed for statistics at the moment.');
+        info('No orders to be processed for statistics at the moment.');
         return;
     };
 
-    console.log('=== STATISTICS ===');
+    info('=== STATISTICS ===');
 
     const mostSoldProduct = reduceAndFindBiggest(flattenItems(orders), (productOptions, item) => {
         const currAmount = productOptions[item.product_option_name] ? productOptions[item.product_option_name] : 0;
         productOptions[item.product_option_name] = currAmount + item.quantity;
         return productOptions;
     });
-    console.log(`Most sold product option is ${mostSoldProduct.key} with ${mostSoldProduct.value} quantity.`);
+    info(`Most sold product option is ${mostSoldProduct.key} with ${mostSoldProduct.value} quantity.`);
 
     const largestByDollarAmount = reduceAndFindBiggest(orders, (ordersByAmount, order) => {
         ordersByAmount[order.id] = order.items.reduce((sum, item) => sum + item.price_cents, 0);
         return ordersByAmount;
     });
-    console.log(`Largest order by dollar is ${largestByDollarAmount.key} with ${largestByDollarAmount.value} US cents`);
+    info(`Largest order by dollar is ${largestByDollarAmount.key} with ${largestByDollarAmount.value} US cents`);
 
     const stateWithMostOrders = reduceAndFindBiggest(orders, (states, order) => {
         const currAmount = states[order.address.state] ? states[order.address.state] : 0;
         states[order.address.state] = currAmount + 1;
         return states;
     });
-    console.log(`State with most orders is ${stateWithMostOrders.key} with ${stateWithMostOrders.value} orders`);
+    info(`State with most orders is ${stateWithMostOrders.key} with ${stateWithMostOrders.value} orders`);
 
     const stateWithMostItems = reduceAndFindBiggest(orders, (states, order) => {
         const currAmount = states[order.address.state] ? states[order.address.state] : 0;
         states[order.address.state] = currAmount + order.items.length;
         return states;
     });
-    console.log(`State with most ordered items is ${stateWithMostItems.key} with ${stateWithMostItems.value} ordered items`);
+    info(`State with most ordered items is ${stateWithMostItems.key} with ${stateWithMostItems.value} ordered items`);
 
     const cityWithMostShipments = reduceAndFindBiggest(orders, (cities, order) => {
         const currAmount = cities[order.address.city] ? cities[order.address.city] : 0;
         cities[order.address.city] = currAmount + order.shipments.length;
         return cities;
     });
-    console.log(`City with most shipments is ${cityWithMostShipments.key} with ${cityWithMostShipments.value} shipments`);
+    info(`City with most shipments is ${cityWithMostShipments.key} with ${cityWithMostShipments.value} shipments`);
 };
 
 module.exports = {

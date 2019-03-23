@@ -3,11 +3,12 @@
  * @module faire-api
  */
 
-const axios = require('axios');
+const axios = require('axios').default;
+const { info } = require('../log');
 
 const API_URL = 'https://www.faire-stage.com/api/v1';
-const TOKEN = process.argv[2];
 
+const TOKEN = process.argv[2] || (process.env.TEST_TOKEN);
 if (!TOKEN) {
     const howToUse = `
         How to use:
@@ -17,8 +18,8 @@ if (!TOKEN) {
         - TOKEN is the Faire API token [MANDATORY]
         - BRAND is the brand token [OPTIONAL]
     `;
-    console.error(howToUse);
-    return;
+    info(howToUse);
+    process.exit(-1);
 }
 
 module.exports = axios.create({
