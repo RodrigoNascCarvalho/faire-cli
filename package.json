@@ -5,7 +5,7 @@
   "scripts": {
     "faire-cli": "node index.js",
     "faire-cli-debug": "DEBUG=true node index.js",
-    "test": "TEST_TOKEN=test-token jest --watch"
+    "test": "TEST_TOKEN=test-token jest"
   },
   "jest": {
     "testEnvironmentOptions": {
